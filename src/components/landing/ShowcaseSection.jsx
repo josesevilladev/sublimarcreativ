@@ -1,35 +1,29 @@
 import { ArrowUpRight } from 'lucide-react'
-import camisetaPersonalizada from '../../assets/showcase/camiseta-personalizada.png'
-import neceserCarla from '../../assets/showcase/neceser-carla.png'
-import rocaDecorativa from '../../assets/showcase/roca-decorativa.png'
-import tazaCumpleanos from '../../assets/showcase/taza-cumpleanos.png'
-import tazaFelicidades from '../../assets/showcase/taza-felicidades.png'
-import tazaPapaHeroe from '../../assets/showcase/taza-papa-heroe.png'
 
 const showcaseProducts = [
   {
     name: 'Camisetas personalizadas con fotos',
-    image: camisetaPersonalizada,
+    image: '/showcase/camiseta-personalizada.png',
   },
   {
     name: 'Taza "Mi papa es mi heroe"',
-    image: tazaPapaHeroe,
+    image: '/showcase/taza-papa-heroe.png',
   },
   {
     name: 'Neceser personalizado',
-    image: neceserCarla,
+    image: '/showcase/neceser-carla.png',
   },
   {
     name: 'Roca personalizada con mensaje',
-    image: rocaDecorativa,
+    image: '/showcase/roca-decorativa.png',
   },
   {
     name: 'Taza de felicitacion',
-    image: tazaFelicidades,
+    image: '/showcase/taza-felicidades.png',
   },
   {
     name: 'Taza de cumpleanos personalizada',
-    image: tazaCumpleanos,
+    image: '/showcase/taza-cumpleanos.png',
   },
 ]
 
