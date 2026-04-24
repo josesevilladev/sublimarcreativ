@@ -1,9 +1,9 @@
 import { ArrowUpRight } from 'lucide-react'
-import tazaFelicidades from '../../assets/showcase/camiseta-personalizada.png'
-import tazaCumpleanos from '../../assets/showcase/neceser-carla.png'
-import neceserCarla from '../../assets/showcase/roca-decorativa.png'
-import camisetaPersonalizada from '../../assets/showcase/taza-cumpleanos.png'
-import rocaDecorativa from '../../assets/showcase/taza-felicidades.png'
+import camisetaPersonalizada from '../../assets/showcase/camiseta-personalizada.png'
+import neceserCarla from '../../assets/showcase/neceser-carla.png'
+import rocaDecorativa from '../../assets/showcase/roca-decorativa.png'
+import tazaCumpleanos from '../../assets/showcase/taza-cumpleanos.png'
+import tazaFelicidades from '../../assets/showcase/taza-felicidades.png'
 import tazaPapaHeroe from '../../assets/showcase/taza-papa-heroe.png'
 
 const showcaseProducts = [
