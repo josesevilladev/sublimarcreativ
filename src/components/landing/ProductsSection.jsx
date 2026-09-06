@@ -1,4 +1,5 @@
 import { Gem, Package, Shirt } from 'lucide-react'
+import { trackSpotlight } from '../../lib/spotlight'
 
 const products = [
   {
@@ -20,22 +21,33 @@ const products = [
 
 function ProductsSection() {
   return (
-    <section id="productos" className="border-y border-[#e1d3c4] bg-[#f4ede4] py-16 md:py-24">
-      <div className="mx-auto w-full max-w-6xl px-5 md:px-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#a2583d]">Productos destacados</p>
-        <h2 className="mt-3 font-serif text-3xl text-[#3d352f] md:text-5xl">Tu idea, en una pieza inolvidable</h2>
+    <section id="productos" className="relative overflow-hidden border-y border-sand-deep/60 bg-sand/45 py-20 md:py-28">
+      <div className="bloom right-[-10%] top-[10%] h-[22rem] w-[22rem] bg-gold/30" />
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {products.map(({ title, description, icon: Icon }) => (
+      <div className="relative mx-auto w-full max-w-6xl px-5 md:px-8">
+        <div className="reveal">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-clay-deep">Productos destacados</p>
+          <h2 className="mt-4 max-w-2xl font-serif text-4xl leading-tight tracking-tight text-ink md:text-6xl">
+            Tu idea, en una pieza inolvidable
+          </h2>
+        </div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {products.map(({ title, description, icon: Icon }, index) => (
             <article
               key={title}
-              className="group rounded-2xl border border-[#d8c9b8] bg-[#fffaf4] p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+              onPointerMove={trackSpotlight}
+              className="spotlight reveal group relative overflow-hidden rounded-[1.75rem] border border-sand-deep/70 bg-parchment/80 p-7 backdrop-blur transition-all duration-500 hover:-translate-y-2 hover:border-clay/40 hover:shadow-[0_40px_70px_-45px_rgba(29,23,20,0.9)]"
             >
-              <div className="inline-flex rounded-full bg-[#e9ddce] p-3 text-[#a2583d]">
+              <span className="absolute right-6 top-6 font-serif text-5xl text-sand-deep/70 transition-colors duration-500 group-hover:text-clay/30">
+                0{index + 1}
+              </span>
+              <div className="inline-flex rounded-2xl bg-gradient-to-br from-clay to-gold p-3 text-parchment shadow-[0_16px_30px_-18px_rgba(193,97,60,1)] transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110">
                 <Icon size={22} />
               </div>
-              <h3 className="mt-5 font-serif text-2xl text-[#44392f]">{title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-[#675a4e]">{description}</p>
+              <h3 className="mt-6 font-serif text-2xl tracking-tight text-ink">{title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-cocoa">{description}</p>
+              <span className="mt-6 block h-px w-0 bg-gradient-to-r from-clay to-gold transition-all duration-700 group-hover:w-full" />
             </article>
           ))}
         </div>
