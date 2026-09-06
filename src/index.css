@@ -1,10 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
 @import 'tailwindcss';
 
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Fraunces', 'Playfair Display', Georgia, serif;
+
+  --color-ink: #1d1714;
+  --color-ink-soft: #2b221c;
+  --color-parchment: #faf5ee;
+  --color-sand: #f0e5d7;
+  --color-sand-deep: #e2d2be;
+  --color-clay: #c1613c;
+  --color-clay-deep: #9d4a2c;
+  --color-olive: #6d7f58;
+  --color-olive-deep: #56663f;
+  --color-gold: #e0a35f;
+  --color-cocoa: #6a5d52;
+}
+
 :root {
-  font-family: 'Inter', system-ui, sans-serif;
-  color: #3d352f;
-  background-color: #f8f3ec;
+  color-scheme: light;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background-color: var(--color-parchment);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -16,9 +34,172 @@
 
 body {
   margin: 0;
-  background-color: #f8f3ec;
+  background-color: var(--color-parchment);
+  overflow-x: hidden;
 }
 
 #root {
   min-height: 100vh;
+}
+
+::selection {
+  background: var(--color-clay);
+  color: var(--color-parchment);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-clay);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* --- Sublimation bloom: heat gradients that drift behind the content --- */
+.bloom {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(70px);
+  opacity: 0.55;
+  pointer-events: none;
+  animation: drift 18s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2.5rem, -2rem, 0) scale(1.15);
+  }
+}
+
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.32'/%3E%3C/svg%3E");
+}
+
+/* --- Ink-bleed scroll reveal --- */
+.reveal {
+  opacity: 0;
+  translate: 0 28px;
+  filter: blur(8px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    translate 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.9s ease,
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s ease,
+    border-color 0.5s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  translate: none;
+  filter: none;
+}
+
+/* --- Gradient text that mimics sublimated ink --- */
+.text-bloom {
+  background: linear-gradient(100deg, var(--color-clay) 0%, var(--color-gold) 45%, var(--color-olive) 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: bloom-pan 9s ease-in-out infinite alternate;
+}
+
+@keyframes bloom-pan {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+/* --- Spotlight card: a warm glow follows the pointer --- */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+
+.spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    18rem circle at var(--x, 50%) var(--y, 50%),
+    color-mix(in srgb, var(--color-gold) 28%, transparent),
+    transparent 65%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+/* --- Marquee band --- */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 34s linear infinite;
+}
+
+.marquee-slow {
+  animation-duration: 48s;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.float-slow {
+  animation: float 7s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(-0.5rem);
+  }
+  to {
+    transform: translateY(0.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .bloom,
+  .marquee,
+  .text-bloom,
+  .float-slow {
+    animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    translate: none;
+    filter: none;
+    transition: none;
+  }
 }
